@@ -8,11 +8,10 @@
   changed_when: false
 
 - name: Install dependencies (RedHat).
-  yum: name={{ item }} state=present
+  yum: 
+    name: ['cronie', 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm']
+    state: present
   when: ansible_os_family == 'RedHat'
-  with_items:
-    - cronie
-    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
 - name: Install cron (Debian).
   apt: name=cron state=present
