@@ -18,6 +18,7 @@
       apt: update_cache=true cache_valid_time=600
       when: ansible_os_family == 'Debian'
       changed_when: false
+      become: yes
 
     - name: Install dependencies (RedHat).
       yum: name={{ item }} state=present
@@ -25,10 +26,12 @@
       with_items:
         - cronie
         - epel-release
+      become: yes
 
     - name: Install cron (Debian).
       apt: name=cron state=present
       when: ansible_os_family == 'Debian'
+      become: yes
 
   tasks:
     - name: Flush handlers in case any configs have changed.
