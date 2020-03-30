@@ -32,14 +32,6 @@
               - "{{ keycloak_domain_name }}"
         when: letsencrypt_certbot_enabled
 
-    - name: Test secure connection to SSL domain.
-      uri:
-        url: "https://{{ keycloak_domain_name }}/"
-        status_code: 200
-      delegate_to: localhost
-      become: false
-      when: letsencrypt_certbot_enabled
-
     - name: Check that the cert.pem exists
       stat:
         path:  "/etc/letsencrypt/live/{{ keycloak_domain_name }}/cert.pem"
