@@ -168,7 +168,7 @@ a git tree cloned with the default repo name you will get a `role not
 found` error like this:
 
 ```shell
-ERROR! the role 'nkinder.keycloak' was not found in /home/$USER/src/ansible-keycloak/molecule/default/roles:/tmp/molecule/ansible-keycloak/default/roles:/home/$USER/src:/home/$USER/src/ansible-keycloak/molecule/default
+ERROR! the role 'hungrymonkey.keycloak' was not found in /home/$USER/src/ansible-keycloak/molecule/default/roles:/tmp/molecule/ansible-keycloak/default/roles:/home/$USER/src:/home/$USER/src/ansible-keycloak/molecule/default
 
 The error appears to have been in '/home/$USER/src/ansible-keycloak/molecule/default/playbook.yml': line 6, column 7, but may
 be elsewhere in the file depending on the exact syntax problem.
@@ -176,7 +176,7 @@ be elsewhere in the file depending on the exact syntax problem.
 The offending line appears to be:
 
   roles:
-    - role: nkinder.keycloak
+    - role: hungrymonkey.keycloak
       ^ here
 ```
 The solution to this is simple, when cloning the git repo provide a
@@ -188,16 +188,16 @@ To determine the role name molecule will use find it's definition in
 
 ```yaml
   roles:
-    - role: nkinder.keycloak
+    - role: hungrymonkey.keycloak
 ```
 
-Hence the role name molecule will use is `nkinder.keycloak`.
+Hence the role name molecule will use is `hungrymonkey.keycloak`.
 
 Thus to clone this repo do this:
 
 ```shell
 $ cd ~/src
-$ git clone git@github.com:nkinder/ansible-keycloak.git nkinder.keycloak
+$ git clone git@github.com:hungrymonkey/ansible-keycloak.git hungrymonkey.keycloak
 ```
 
 Of course if you're cloning from a github fork you'll need to adjust
@@ -206,7 +206,7 @@ the repo URL accordingly.
 You'll need to cd into the cloned git repo:
 
 ```shell
-$ cd nkinder.keycloak
+$ cd hungrymonkey.keycloak
 ```
 
 When you run `molecule test` from the top level directory of the git
@@ -220,9 +220,9 @@ name** of your git repo. For example:
 ANSIBLE_ROLES_PATH: /tmp/molecule/ansible-keycloak/default/roles:/home/$USER/src
 ```
 
-Because ansible is looking for a role named `nkinder.keycloak` it will
+Because ansible is looking for a role named `hungrymonkey.keycloak` it will
 search the directories listed in `ANSIBLE_ROLES_PATH` and utilize the
-files in finds in `/home/$USER/src/nkinder.keycloak`.
+files in finds in `/home/$USER/src/hungrymonkey.keycloak`.
 
 > **NOTE**: molecule will stage some files in a temporary directory
   for the duration of a test run, this is the
@@ -320,7 +320,7 @@ like this:
 Once your virtualenv is properly set up, the tests can be run with these commands:
 
 ```
-$ cd nkinder.keycloak # Your repo whose directory matches the Galaxy role name
+$ cd hungrymonkey.keycloak # Your repo whose directory matches the Galaxy role name
 $ molecule test
 ```
 
