@@ -31,6 +31,7 @@
 
 - name: Install Cert Bot
   import_tasks: "{{ role_path }}/tasks/setup_lets_encrypt.yml"
+  become: true
 
 - block:
     - name: perform keycloak install
