@@ -12,6 +12,7 @@
   when: ansible_os_family == 'RedHat'
   with_items:
     - cronie
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     - epel-release
 
 - name: Install cron (Debian).
