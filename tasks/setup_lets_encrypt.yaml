@@ -1,0 +1,48 @@
+---
+## https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/SSL-on-amazon-linux-2.html
+## https://github.com/geerlingguy/ansible-role-certbot/blob/master/molecule/default/playbook-standalone-nginx-aws.yml
+
+- name: Create Lets Encrypt Certificates
+  include_role:
+    name: geerlingguy.certbot
+  vars:
+    certbot_admin_email: {{ letsencrypt_certbot_admin_email }}
+    certbot_create_if_missing: {{ letsencrypt_certbot_create_if_missing }}
+    certbot_create_standalone_stop_services: {{ letsencrypt_certbot_create_standalone_stop_services }}
+    certbot_certs:
+        - domains:
+          - {{ keycloak_domain_name }}
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=true cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Install dependencies (RedHat).
+      yum: name={{ item }} state=present
+      when: ansible_os_family == 'RedHat'
+      with_items:
+        - cronie
+        - epel-release
+
+    - name: Install cron (Debian).
+      apt: name=cron state=present
+      when: ansible_os_family == 'Debian'
+
+  tasks:
+    - name: Flush handlers in case any configs have changed.
+      meta: flush_handlers
+
+    - name: Test secure connection to SSL domain.
+      uri:
+        url: https://{{ keycloak_domain_name }}/
+        status_code: 200
+      delegate_to: localhost
+      become: false
+      set_fact:
+        keycloak_tls_cert: /etc/letsencrypt/live/{{ keycloak_domain_name }}/cert.pem
+        keycloak_tls_key: /etc/letsencrypt/live/{{ keycloak_domain_name }}/privkey.pem
+  when: letsencrypt_certbot_enabled
+
+

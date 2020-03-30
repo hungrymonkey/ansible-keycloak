@@ -29,6 +29,9 @@
   register: existing_deploy
   become: yes
 
+- name: Install Cert Bot
+    import_tasks: "{{ role_path }}/tasks/setup_lets_encrypt.yml"
+
 - block:
     - name: perform keycloak install
       debug:
