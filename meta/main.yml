@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   role_name: keycloak
-  author: Nathan Kinder
+  author: Ted Chang
   description: Keycloak for systemd managed systems.
   company: Red Hat
 
@@ -24,3 +24,4 @@ galaxy_info:
     - idm
     - keycloak
     - sso
+    - letsencrypt

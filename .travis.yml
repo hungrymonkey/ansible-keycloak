@@ -5,7 +5,7 @@ services: docker
 
 env:
   global:
-    - ROLE_NAME: nkinder.keycloak
+    - ROLE_NAME: hungrymonkey.keycloak
   matrix:
     - MOLECULE_DISTRO="centos:7"
     - MOLECULE_DISTRO="fedora:28"

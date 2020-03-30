@@ -3,7 +3,7 @@
   hosts: all
 
   roles:
-    - role: nkinder.keycloak
+    - role: hungrymonkey.keycloak
 
   vars:
     keycloak_admin_password: password
