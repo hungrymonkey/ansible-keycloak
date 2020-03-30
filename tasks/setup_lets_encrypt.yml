@@ -6,12 +6,12 @@
   include_role:
     name: geerlingguy.certbot
   vars:
-    certbot_admin_email: {{ letsencrypt_certbot_admin_email }}
-    certbot_create_if_missing: {{ letsencrypt_certbot_create_if_missing }}
-    certbot_create_standalone_stop_services: {{ letsencrypt_certbot_create_standalone_stop_services }}
+    certbot_admin_email: "{{ letsencrypt_certbot_admin_email }}"
+    certbot_create_if_missing: "{{ letsencrypt_certbot_create_if_missing }}"
+    certbot_create_standalone_stop_services: "{{ letsencrypt_certbot_create_standalone_stop_services }}"
     certbot_certs:
         - domains:
-          - {{ keycloak_domain_name }}
+          - "{{ keycloak_domain_name }}"
 
   pre_tasks:
     - name: Update apt cache.
@@ -39,13 +39,13 @@
 
     - name: Test secure connection to SSL domain.
       uri:
-        url: https://{{ keycloak_domain_name }}/
+        url: "https://{{ keycloak_domain_name }}/"
         status_code: 200
       delegate_to: localhost
       become: false
       set_fact:
-        keycloak_tls_cert: /etc/letsencrypt/live/{{ keycloak_domain_name }}/cert.pem
-        keycloak_tls_key: /etc/letsencrypt/live/{{ keycloak_domain_name }}/privkey.pem
+        keycloak_tls_cert: "/etc/letsencrypt/live/{{ keycloak_domain_name }}/cert.pem"
+        keycloak_tls_key: "/etc/letsencrypt/live/{{ keycloak_domain_name }}/privkey.pem"
   when: letsencrypt_certbot_enabled
 
 
